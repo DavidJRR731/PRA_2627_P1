@@ -6,9 +6,7 @@
 #include "List.h"
 
 template<typename T>
-class ListArray:
-	public:
-	List<T>{
+class ListArray: public:List<T>{
 		private:
 			T*arr;
 			int max;
@@ -30,7 +28,6 @@ class ListArray:
 
 			T operator[](int pos);
 
-
 			friend std::ostream& operator<<(std::ostream &out,const ListArray<T> &list){
 			       out<<"[";
 		       		for(int i=0;i<list.n;i++){
@@ -43,12 +40,14 @@ class ListArray:
 				out<<"]";
 				return out;
 			}
+};
+
 
 			template<typename T>
 				ListArray<T>::ListArray(){
 				max=MINSIZE=2;
 				n=0;
-				arr=new t[max];
+				arr=new T[max];
 			}
 
 			template<typename T>
@@ -65,7 +64,7 @@ class ListArray:
 
 			template<typename T>
 				T ListArray<T>::operator[](int pos){
-					if(pos<o||pos>=n){
+					if(pos<0||pos>=n){
 						throw std::out_of_range("Posición fuera de rango");
 					}
 					return arr[pos];
@@ -77,6 +76,17 @@ class ListArray:
 					}
 					return arr[pos];
 				}
+
+			template<typename T>int ListAarray<T>::search(T e){
+				for(int i=0;i<n;i++){
+					if(arr[i]==e){
+						return i;
+					}else{
+						return -1;
+					}
+				}
+			}
+
 			template<typename T>void ListArray<T>::resize(int new_size){
 				T*aux_arr=new T[new_size];
 				for(int i=0;i<n;i++){
@@ -114,7 +124,7 @@ class ListArray:
 					throw std::out_of_range("Posición de borrador invalida.");
 				}
 				T aux= arr[pos];
-				for(int i=0;i<n-1;i++){
+				for(int i=pos;i<n-1;i++){
 					arr[i]=arr[i+1];
 				}
 				n--;
